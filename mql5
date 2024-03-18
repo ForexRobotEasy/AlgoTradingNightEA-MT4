@@ -1,0 +1,82 @@
+mql5
+//+------------------------------------------------------------------+
+//|                                                   AlgoTradingNightEA MT4 | 
+//|                                       https://forexroboteasy.com |
+//|                                Developed by Forex Robot Easy Team |
+//+------------------------------------------------------------------+
+//| Expert Advisor for Forex trading during low volatility evenings |
+//+------------------------------------------------------------------+
+
+// Define input parameters
+input double LotSize = 0.1; // Position size
+input double StopLossPips = 20; // Stop loss in pips
+
+// Define currency pairs
+string[] CurrencyPairs = {'USDCHF', 'EURUSD', 'GBPUSD', 'EURCHF', 'USDCAD', 'GBPAUD', 'CADCHF', 'EURAUD', 'AUDCHF', 'GBPCHF'};
+
+// Define trading function
+void Trade(string symbol, ENUM_ORDER_TYPE orderType)
+{
+   Print('Executing trade for symbol: ', symbol, ' Order type: ', EnumToString(orderType));
+   // Implement trade execution logic here
+   // ...
+   // ...
+   
+   // Print trade execution details
+   Print('Trade executed for symbol: ', symbol, ' Order type: ', EnumToString(orderType));
+}
+
+// Define exit position function
+void ExitPosition(string symbol, ENUM_ORDER_TYPE orderType)
+{
+   Print('Exiting position for symbol: ', symbol, ' Order type: ', EnumToString(orderType));
+   // Implement exit position logic here
+   // ...
+   // ...
+   
+   // Print exit position details
+   Print('Position exited for symbol: ', symbol, ' Order type: ', EnumToString(orderType));
+}
+
+// Define main function
+void OnTick()
+{
+   int totalCurrencyPairs = ArraySize(CurrencyPairs);
+   
+   for (int i = 0; i < totalCurrencyPairs; i++)
+   {
+      string symbol = CurrencyPairs[i];
+      
+      // Check if it's evening and market volatility is low
+      if (IsEvening() && IsLowVolatility(symbol))
+      {
+         // Buy order
+         Trade(symbol, ORDER_TYPE_BUY);
+         
+         // Sell order
+         Trade(symbol, ORDER_TYPE_SELL);
+         
+         // Exit position before stop loss is reached
+         ExitPosition(symbol, ORDER_TYPE_BUY);
+         ExitPosition(symbol, ORDER_TYPE_SELL);
+      }
+   }
+}
+
+// Check if it's evening
+bool IsEvening()
+{
+   // Implement logic to check if it's evening
+   // ...
+   // ...
+   return true; // Placeholder for testing
+}
+
+// Check if market volatility is low
+bool IsLowVolatility(string symbol)
+{
+   // Implement logic to check if market volatility is low for the given symbol
+   // ...
+   // ...
+   return true; // Placeholder for testing
+}
